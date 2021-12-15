@@ -4,6 +4,6 @@ g = Game()  # facilitar toda a bagaça!
 
 while 1:
     g.curr_menu.display_menu()
-    #g.game_loop()
+    g.game_loop()
 
 pygame.quit()
