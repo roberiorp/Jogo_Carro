@@ -1,27 +1,28 @@
-import pygame
 import sys
-from pygame.locals import *
 
-class Menu():
-    def __init__(self, game):
-        self.game = game
-        self.mid_w, self.mid_h = self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2
+import pygame
+
+
+class Menu:
+    def __init__(self, jogo):
+        self.jogo = jogo
+        self.mid_w, self.mid_h = self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 2
         self.run_display = True
         self.cursor_rect = pygame.Rect(0, 0, 130, 130)
         self.offset = - 100
 
-    def draw_cursor(self):
-        self.game.draw_text('▶', 20, self.cursor_rect.x, self.cursor_rect.y)
+    def desenha_cusor(self): # ▶
+        self.jogo.desenha_texto('=>', 30, self.cursor_rect.x, self.cursor_rect.y)
 
-    def blit_screen(self):
-        self.game.window.blit(self.game.display, (0, 0))
+    def blit_tela(self):
+        self.jogo.window.blit(self.jogo.tela, (0, 0))
         pygame.display.update()
-        self.game.reset_keys()
+        self.jogo.reseta_teclas()
 
 
 class MainMenu(Menu):
-    def __init__(self, game):
-        Menu.__init__(self, game)
+    def __init__(self, jogo):
+        Menu.__init__(self, jogo)
         self.state = "Iniciar"
         self.startx, self.starty = self.mid_w, self.mid_h
         self.tutorialx, self.tutorialy = self.mid_w, self.mid_h + 40
@@ -32,22 +33,21 @@ class MainMenu(Menu):
     def display_menu(self):  # Aparência do Menu
         self.run_display = True
         while self.run_display:
-            self.game.check_events()
-            self.check_input()
-            self.game.display.fill(self.game.BLACK)  # Preenchendo tela da cor preta
-            self.game.draw_text('Menu Inicial', 40, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 8)
-            #self.game.draw_text("Recorde Atual: ", 15, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 4)
-            self.game.draw_text("Jogar", 20, self.startx, self.starty)
-            self.game.draw_text("Como Jogar?", 20, self.tutorialx, self.tutorialy)
-            self.game.draw_text("Créditos", 20, self.creditsx, self.creditsy)
-            self.game.draw_text("Sair", 20, self.exitx, self.exity)
-            self.game.draw_text("Voltar: Backspace", 10, self.mid_w - 200, self.mid_h + 190)
-            self.game.draw_text("Avançar: Enter", 10, self.mid_w + 200, self.mid_h + 190)
-            self.draw_cursor()
-            self.blit_screen()
+            self.jogo.checar_eventos()
+            self.checar_entrada()
+            self.jogo.tela.fill(self.jogo.BLACK)  # Preenchendo tela da cor preta
+            self.jogo.desenha_texto('Menu Inicial', 60, self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 8)
+            self.jogo.desenha_texto("Jogar", 30, self.startx, self.starty)
+            self.jogo.desenha_texto("Como Jogar?", 30, self.tutorialx, self.tutorialy)
+            self.jogo.desenha_texto("Créditos", 30, self.creditsx, self.creditsy)
+            self.jogo.desenha_texto("Sair", 30, self.exitx, self.exity)
+            self.jogo.desenha_texto("Voltar: Backspace", 20, self.mid_w - 200, self.mid_h + 190)
+            self.jogo.desenha_texto("Avancar: Enter", 20, self.mid_w + 200, self.mid_h + 190)
+            self.desenha_cusor()
+            self.blit_tela()
 
     def move_cursor(self):  # Movimentação do Cursor (Setinha)
-        if self.game.DOWN_KEY:  # Usando ceta pra baixo
+        if self.jogo.DOWN_KEY:  # Usando ceta pra baixo
             if self.state == 'Iniciar':
                 self.cursor_rect.midtop = (self.tutorialx + self.offset, self.tutorialy)
                 self.state = 'Como Jogar?'
@@ -60,7 +60,7 @@ class MainMenu(Menu):
             elif self.state == 'Sair':
                 self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
                 self.state = 'Iniciar'
-        elif self.game.UP_KEY:  # Usando ceta pra cima
+        elif self.jogo.UP_KEY:  # Usando ceta pra cima
             if self.state == 'Iniciar':
                 self.cursor_rect.midtop = (self.exitx + self.offset, self.exity)
                 self.state = 'Sair'
@@ -74,23 +74,23 @@ class MainMenu(Menu):
                 self.cursor_rect.midtop = (self.tutorialx + self.offset, self.tutorialy)
                 self.state = 'Como Jogar?'
 
-    def check_input(self):
+    def checar_entrada(self):
         self.move_cursor()
-        if self.game.START_KEY:
+        if self.jogo.START_KEY:
             if self.state == 'Iniciar':
-                self.game.playing = True
+                self.jogo.playing = True
             elif self.state == 'Como Jogar?':
-                self.game.curr_menu = self.game.options
+                self.jogo.curr_menu = self.jogo.opcoes
             elif self.state == 'Créditos':
-                self.game.curr_menu = self.game.credits
+                self.jogo.curr_menu = self.jogo.creditos
             elif self.state == 'Sair':
-                self.game.exiting = sys.exit()
+                self.jogo.exiting = sys.exit()
             self.run_display = False
 
 
-class OptionsMenu(Menu):
-    def __init__(self, game):
-        Menu.__init__(self, game)
+class OpcoesMenu(Menu):
+    def __init__(self, jogo):
+        Menu.__init__(self, jogo)
         self.arrowx, self.arrowy = self.mid_w, self.mid_h + 0
         self.rightx, self.righty = self.mid_w, self.mid_h + 60
         self.leftx, self.lefty = self.mid_w, self.mid_h + 90
@@ -100,44 +100,44 @@ class OptionsMenu(Menu):
     def display_menu(self):
         self.run_display = True
         while self.run_display:
-            self.game.check_events()
-            self.check_input()
-            self.game.display.fill((0, 0, 0))
-            self.game.draw_text('Tutorial', 40, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 - 120)
-            self.game.draw_text("Teclado", 30, self.arrowx, self.arrowy)
-            self.game.draw_text("Andar para Direira:  →", 15, self.rightx, self.righty)
-            self.game.draw_text("Andar para Esquerda: ←", 15, self.leftx, self.lefty)
-            self.game.draw_text("Disparar Cura:  F", 15, self.shotx, self.shoty)
-            self.game.draw_text("Pular:  Barra de Espaço", 15, self.shotz, self.shoth)
-            self.game.draw_text("Voltar: Backspace", 10, self.mid_w - 200, self.mid_h + 190)
-            self.game.draw_text("Avançar: Enter", 10, self.mid_w + 200, self.mid_h + 190)
-            self.blit_screen()
+            self.jogo.checar_eventos()
+            self.checar_input()
+            self.jogo.tela.fill((0, 0, 0))
+            self.jogo.desenha_texto('Tutorial', 40, self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 2 - 120)
+            self.jogo.desenha_texto("Teclado", 30, self.arrowx, self.arrowy)
+            self.jogo.desenha_texto("Virar para Direira:  ->", 25, self.rightx, self.righty) #→
+            self.jogo.desenha_texto("Virar para Esquerda: <-", 25, self.leftx, self.lefty) #←
+            self.jogo.desenha_texto("Pular nível:  TAB", 25, self.shotx, self.shoty)
+            self.jogo.desenha_texto("Voltar: Backspace", 15, self.mid_w - 200, self.mid_h + 190)
+            self.jogo.desenha_texto("Avançar: Enter", 15, self.mid_w + 200, self.mid_h + 190)
+            self.blit_tela()
 
-    def check_input(self):
-        if self.game.BACK_KEY:
-            self.game.curr_menu = self.game.main_menu
+    def checar_input(self):
+        if self.jogo.BACK_KEY:
+            self.jogo.curr_menu = self.jogo.main_menu
             self.run_display = False
-        elif self.game.START_KEY:
+        elif self.jogo.START_KEY:
             pass
 
 
-class CreditsMenu(Menu):
-    def __init__(self, game):
-        Menu.__init__(self, game)
+class CreditosMenu(Menu):
+    def __init__(self, jogo):
+        Menu.__init__(self, jogo)
 
     def display_menu(self):
         self.run_display = True
         while self.run_display:
-            self.game.check_events()
-            if self.game.START_KEY or self.game.BACK_KEY:
-                self.game.curr_menu = self.game.main_menu
+            self.jogo.checar_eventos()
+            if self.jogo.START_KEY or self.jogo.BACK_KEY:
+                self.jogo.curr_menu = self.jogo.main_menu
                 self.run_display = False
-            self.game.display.fill(self.game.BLACK)
-            self.game.draw_text('CRIADORES DE CarRetro', 20, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 4 - 20)
-            self.game.draw_text('ROBERIO RAMOS', 15, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 + 10)
-            self.game.draw_text('ITALO', 15, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 + 30)
-            self.game.draw_text('LEVI', 15, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 + 50)
-            self.game.draw_text('OUTRO', 15, self.game.DISPLAY_W / 2, self.game.DISPLAY_H / 2 + 70)
-            self.game.draw_text("Voltar: Backspace", 10, self.mid_w - 200, self.mid_h + 190)
-            self.game.draw_text("Avançar: Enter", 10, self.mid_w + 200, self.mid_h + 190)
-            self.blit_screen()
+            self.jogo.tela.fill(self.jogo.BLACK)
+            self.jogo.desenha_texto('CRIADORES DE CarRetro', 30, self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 4 - 20)
+            self.jogo.desenha_texto('Robério Ramos', 25, self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 2 + 10)
+            self.jogo.desenha_texto('Italo', 25, self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 2 + 30)
+            self.jogo.desenha_texto('Levi', 25, self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 2 + 50)
+            self.jogo.desenha_texto('OUTRO', 25, self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 2 + 70)
+            self.jogo.desenha_texto('OUTRO', 25, self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 2 + 90)
+            self.jogo.desenha_texto("Voltar: Backspace", 15, self.mid_w - 200, self.mid_h + 190)
+            self.jogo.desenha_texto("Avançar: Enter", 15, self.mid_w + 200, self.mid_h + 190)
+            self.blit_tela()
