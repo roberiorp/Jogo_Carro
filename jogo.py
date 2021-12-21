@@ -154,24 +154,31 @@ class Game():
 
 
                         highscore(count)
-                        count += 1
-                        thing_starty += thing_speed
+                        count += 1  #contador
+                        thing_starty += thing_speed  # aqui entra a velocidade dos carros inimigos.
 
-                        if thing_starty > display_height:
+                        if thing_starty > display_height:  # aqui os carros inimigos sumirem e aparecem em uma posição aleatoria.
+
                             thing_startx = random.randrange(road_start_x, road_end_x - car_width)
                             thing_starty = -200
 
                         bg_y1 += bg_speed
                         bg_y2 += bg_speed
 
-                        if bg_y1 >= display_height:
+                        if bg_y1 >= display_height: # animação da pista para quando a imagem atingir a altura ela volta para a mesma posição.
                             bg_y1 = -600
 
-                        if bg_y2 >= display_height:
+                        if bg_y2 >= display_height: # animação da pista para quando a imagem atingir a altura ela volta para a mesma posição.
                             bg_y2 = -600
 
-                        pygame.display.update()  # update the screen
-                        clock.tick(20)  # frame por sec
+                        if count > 100:   
+                            test = 50 
+                        else:
+                            test = 20   
+
+                        pygame.display.update()  # atualização da tela
+                        
+                        clock.tick(test)   # frames por segundo
 
                 gameloop()
 #FIM
