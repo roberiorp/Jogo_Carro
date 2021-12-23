@@ -101,7 +101,7 @@ class Jogo:
                 carroInimigoH = 100
                 carroInimigo_velocidade = 20
                 contador = 0
-                nivel = 0
+                nivel = 1
                 dificuldade = 100
                 gameExit = False
                 while not gameExit:
