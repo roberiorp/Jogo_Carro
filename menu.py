@@ -3,7 +3,7 @@ import pygame
 
 
 class Menu:  
-    def __init__(self, jogo):  # recebe a classe jogo
+    def __init__(self, jogo):  # recebe 
         self.jogo = jogo
         self.mid_w, self.mid_h = self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 2  # divide a largura e altura por 2.
         self.run_display = True 
