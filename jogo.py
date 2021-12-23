@@ -26,8 +26,11 @@ class Jogo:
             self.checar_eventos()
             if self.START_KEY:
                 self.playing = False
+
             # INICIO
-            # # #  CONFIGURAÇÕES DE TELA ------------------------------------------------------------------
+
+            # # #  CONFIGURAÇÕES DE TELA ------------------------------------------------------------------ 
+
             pygame.init()
             tela_width = 800
             tela_height = 600
@@ -40,17 +43,17 @@ class Jogo:
             carro_height = 100
             telaJogo = pygame.display.set_mode((tela_width, tela_height))
             pygame.display.set_caption("Carro 1.0")
-            icone = pygame.image.load('images/icon.png')  # add icon
+            icone = pygame.image.load('images/icon.png')  # adicionar icones
             pygame.display.set_icon(icone)
-            clock = pygame.time.Clock()
-            carroImg = pygame.image.load("images/kr11.png")  # load the car image
+            clock = pygame.time.Clock() # relogio do score
+            carroImg = pygame.image.load("images/kr11.png")  # carregamento das imagens
             carro2Img = pygame.image.load("images/kr3.png")
             bgImg = pygame.image.load("images/background-5.png")
             colisao_img = pygame.image.load("images/crash.png")
             bgsImg = pygame.image.load("images/car.png")
             # # # MUSICA -----------------------------------------------------------------------------------
-            mixer.music.load('songs/background.wav')
-            #mixer.music.load('songs/loop_0.wav')
+            mixer.music.load('songs/background.wav') # adcionar musica
+            # mixer.music.load('songs/loop_0.wav')
             mixer.music.play(-1)
 
             def highscore(count):
@@ -85,7 +88,7 @@ class Jogo:
                 # pygame.mixer.Sound.stop()
                 pygame.mixer.music.play(-1)
                 bg_x1 = (tela_width / 2) - (574 / 2)
-                bg_x2 = (tela_width / 2) - (574 / 2)
+                bg_x2 = (tela_width / 2) - (574 / 2) 
                 bg_y1 = 0
                 bg_y2 = -600
                 bg_velocidade = 15
@@ -104,7 +107,7 @@ class Jogo:
                 nivel = 1
                 dificuldade = 100
                 gameExit = False
-                while not gameExit:
+                   while not gameExit: #  game
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
                             gameExit = True
@@ -118,7 +121,7 @@ class Jogo:
                         if event.type == pygame.KEYUP:
                             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                                 carro_x_mudar = 0
-                        if event.type == pygame.KEYDOWN: # Almenta dificuldade com tecla TAB
+                        if event.type == pygame.KEYDOWN: # Aumenta dificuldade com tecla TAB
                             if event.key == pygame.K_TAB:
                                 if bg_velocidade < 40:
                                     bg_velocidade += 5
