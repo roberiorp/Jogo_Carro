@@ -13,13 +13,13 @@ class Menu:
     def desenha_cusor(self): # ▶ vai desenhar o cursor
         self.jogo.desenha_texto('=>', 30, self.cursor_rect.x, self.cursor_rect.y)
 
-    def blit_tela(self):
+    def blit_tela(self): #faz o blit da tela
         self.jogo.window.blit(self.jogo.tela, (0, 0))
         pygame.display.update()
         self.jogo.reseta_teclas()
 
 
-class MainMenu(Menu):
+class MainMenu(Menu): #Main Menu
     def __init__(self, jogo):
         Menu.__init__(self, jogo)
         self.state = "Iniciar"
@@ -45,7 +45,7 @@ class MainMenu(Menu):
             self.desenha_cusor()
             self.blit_tela()
 
-    def move_cursor(self):  # Movimentação do Cursor (Setinha).
+    def move_cursor(self):  # Movimentação pelas setas
         if self.jogo.DOWN_KEY:  # Usando seta pra baixo
             if self.state == 'Iniciar':
                 self.cursor_rect.midtop = (self.tutorialx + self.offset, self.tutorialy)
@@ -73,7 +73,7 @@ class MainMenu(Menu):
                 self.cursor_rect.midtop = (self.tutorialx + self.offset, self.tutorialy)
                 self.state = 'Como Jogar?'
 
-    def checar_entrada(self):
+    def checar_entrada(self): #Comando para entrada.
         self.move_cursor()
         if self.jogo.START_KEY:
             if self.state == 'Iniciar':
