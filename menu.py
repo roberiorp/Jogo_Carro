@@ -96,7 +96,7 @@ class OpcoesMenu(Menu): #Opções do menu que aparecem
         self.shotx, self.shoty = self.mid_w, self.mid_h + 120
         self.shotz, self.shoth = self.mid_w, self.mid_h + 150
 
-    def display_menu(self):
+    def display_menu(self):   #display menu
         self.run_display = True
         while self.run_display:
             self.jogo.checar_eventos()
@@ -139,4 +139,4 @@ class CreditosMenu(Menu):
             self.jogo.desenha_texto('OUTRO', 25, self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 2 + 90)
             self.jogo.desenha_texto("Voltar: Backspace", 15, self.mid_w - 200, self.mid_h + 190)
             self.jogo.desenha_texto("Avançar: Enter", 15, self.mid_w + 200, self.mid_h + 190)
-            self.blit_tela()
+            self.blit_tela()   # comentario menu
