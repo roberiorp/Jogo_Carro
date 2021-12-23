@@ -3,14 +3,14 @@ import pygame
 
 
 class Menu:  
-    def __init__(self, jogo):  # recebe 
+    def __init__(self, jogo):  # recebe
         self.jogo = jogo
-        self.mid_w, self.mid_h = self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 2  # divide a largura e altura por 2.
+        self.mid_w, self.mid_h = self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 2  # vai dividir a largura e alt por 22.
         self.run_display = True 
         self.cursor_rect = pygame.Rect(0, 0, 130, 130) # 
         self.offset = - 100
 
-    def desenha_cusor(self): # ▶
+    def desenha_cusor(self): # ▶ vai desenhar o cursor
         self.jogo.desenha_texto('=>', 30, self.cursor_rect.x, self.cursor_rect.y)
 
     def blit_tela(self):
@@ -29,12 +29,12 @@ class MainMenu(Menu):
         self.exitx, self.exity = self.mid_w, self.mid_h + 120
         self.cursor_rect.midtop = (self.startx + self.offset, self.starty)
 
-    def display_menu(self):  # Aparência do Menu
+    def display_menu(self):  # Aparência do Menu inicial ao jogo
         self.run_display = True
         while self.run_display:
             self.jogo.checar_eventos()
             self.checar_entrada()
-            self.jogo.tela.fill(self.jogo.BLACK)  # Preenchendo tela da cor preta
+            self.jogo.tela.fill(self.jogo.BLACK)  # Preenchendo tela com preto
             self.jogo.desenha_texto('Menu Inicial', 60, self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 8)
             self.jogo.desenha_texto("Jogar", 30, self.startx, self.starty)
             self.jogo.desenha_texto("Como Jogar?", 30, self.tutorialx, self.tutorialy)
@@ -45,8 +45,8 @@ class MainMenu(Menu):
             self.desenha_cusor()
             self.blit_tela()
 
-    def move_cursor(self):  # Movimentação do Cursor (Setinha)
-        if self.jogo.DOWN_KEY:  # Usando ceta pra baixo
+    def move_cursor(self):  # Movimentação do Cursor (Setinha).
+        if self.jogo.DOWN_KEY:  # Usando seta pra baixo
             if self.state == 'Iniciar':
                 self.cursor_rect.midtop = (self.tutorialx + self.offset, self.tutorialy)
                 self.state = 'Como Jogar?'
@@ -87,7 +87,7 @@ class MainMenu(Menu):
             self.run_display = False
 
 
-class OpcoesMenu(Menu):
+class OpcoesMenu(Menu): #Opções do menu que aparecem
     def __init__(self, jogo):
         Menu.__init__(self, jogo)
         self.arrowx, self.arrowy = self.mid_w, self.mid_h + 0
