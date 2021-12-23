@@ -129,7 +129,7 @@ class Jogo:
                                     messagem_tela(niv, 50, tela_width / 2, tela_height / 2)
                                     pygame.display.update()
                                     time.sleep(0.2)
-                    if contador == dificuldade:
+                    if contador == dificuldade: # Almenta dificuldade automatico
                         if bg_velocidade < 40:
                             bg_velocidade += 5
                             carroInimigo_velocidade += 5
