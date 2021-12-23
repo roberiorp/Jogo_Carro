@@ -1,14 +1,13 @@
 import sys
-
 import pygame
 
 
-class Menu:
-    def __init__(self, jogo):
+class Menu:  
+    def __init__(self, jogo):  # recebe a classe jogo
         self.jogo = jogo
-        self.mid_w, self.mid_h = self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 2
-        self.run_display = True
-        self.cursor_rect = pygame.Rect(0, 0, 130, 130)
+        self.mid_w, self.mid_h = self.jogo.DISPLAY_W / 2, self.jogo.DISPLAY_H / 2  # divide a largura e altura por 2.
+        self.run_display = True 
+        self.cursor_rect = pygame.Rect(0, 0, 130, 130) # 
         self.offset = - 100
 
     def desenha_cusor(self): # ▶
