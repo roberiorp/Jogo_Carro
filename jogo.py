@@ -107,7 +107,7 @@ class Jogo:
                 nivel = 1
                 dificuldade = 100
                 gameExit = False
-                   while not gameExit: #  game
+                while not gameExit: #  game
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
                             gameExit = True
