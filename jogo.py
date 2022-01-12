@@ -13,7 +13,7 @@ class Jogo:
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY = False, False, False, False
         self.DISPLAY_W, self.DISPLAY_H = 720, 480  # Tamanho da tela
         self.tela = pygame.Surface((self.DISPLAY_W, self.DISPLAY_H))
-        self.window = pygame.display.set_mode(((self.DISPLAY_W, self.DISPLAY_H)))
+        self.window = pygame.display.set_mode((self.DISPLAY_W, self.DISPLAY_H))
         self.font_nome = 'fonte/mieszkanie9.otf'
         self.BLACK, self.WHITE, self.CINZA = (0, 0, 0), (255, 255, 255), (150,150,150) # Definindo cores
         self.main_menu = MainMenu(self)  # Classes
